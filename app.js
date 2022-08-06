@@ -32,4 +32,12 @@ app.get('/agendamento/:id', async (req, res) => {
   res.json(data)
 })
 
+app.get('/pessoas', async (req, res) => {
+  const token = req.header('token')
+  console.log(token)
+  const { data } = await axios.get('http://localhost:8080/regulacao/pessoas', { headers: { 'Authorization': `Bearer ${token}` }})
+  res.json(data)
+  // res.json({ message : token})
+})
+
 module.exports = { app }
