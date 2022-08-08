@@ -34,7 +34,7 @@ app.disable('x-powered-by')
 // SAVE
 app.post('/agendamento', async (req, res) => {
   const token = req.header('token')
-  const { data } = await axios.post('http://localhost:8095/regulacao/agendamento', { headers: { 'Authorization': `Bearer ${token}` }})
+  const { data } = await axios.post('http://localhost:8095/regulacao/agendamento', { headers: { 'Authorization': `Bearer ${token}` }, body: req.body})
   res.json(data)
 })
 
@@ -58,7 +58,25 @@ app.get('/agendamento/:id', async (req, res) => {
 // SAVE
 app.post('/pessoa', async (req, res) => {
   const token = req.header('token')
-  const { data } = await axios.post('http://localhost:8080/regulacao/pessoa', { headers: { 'Authorization': `Bearer ${token}` }})
+  const { data } = await axios.post('http://localhost:8080/regulacao/pessoa', {     
+      plano: req.body.plano,
+      cpf: req.body.cpf,
+      rg: req.body.rg,
+      cnh: req.body.cnh,
+      nome: req.body.nome,
+      sobrenome: req.body.sobrenome,
+      nasc: req.body.nasc,
+      mae: req.body.mae,
+      pai: req.body.pai, 
+      telefones: req.body.telefones,
+      emails: req.body.emails,
+      enderecos: req.body.enderecos,
+      atendimentos: req.body.atendimentos,
+      profissional: req.body.profissional
+    }, 
+    {
+      headers: { 'Authorization': `Bearer ${token}` }
+    })
   res.json(data)
 })
 
@@ -98,7 +116,7 @@ app.delete('/pessoa/delete/:id', async (req, res) => {
 // SAVE
 app.post('/profissional', async (req, res) => {
   const token = req.header('token')
-  const { data } = await axios.post('http://localhost:8080/regulacao/profissional', { headers: { 'Authorization': `Bearer ${token}` }})
+  const { data } = await axios.post('http://localhost:8080/regulacao/profissional', { headers: { 'Authorization': `Bearer ${token}` }, body: req.body})
   res.json(data)
 })
 
@@ -138,7 +156,7 @@ app.delete('/profissional/delete/:id', async (req, res) => {
 // SAVE
 app.post('/procedimento', async (req, res) => {
   const token = req.header('token')
-  const { data } = await axios.post('http://localhost:8080/regulacao/procedimento', { headers: { 'Authorization': `Bearer ${token}` }})
+  const { data } = await axios.post('http://localhost:8080/regulacao/procedimento', { headers: { 'Authorization': `Bearer ${token}` }, body: req.body})
   res.json(data)
 })
 
@@ -162,7 +180,7 @@ app.get('/procedimentos', async (req, res) => {
 // SAVE
 app.post('/agenda', async (req, res) => {
   const token = req.header('token')
-  const { data } = await axios.post('http://localhost:8080/regulacao/agenda', { headers: { 'Authorization': `Bearer ${token}` }})
+  const { data } = await axios.post('http://localhost:8080/regulacao/agenda', { headers: { 'Authorization': `Bearer ${token}` }, body: req.body})
   res.json(data)
 })
 
