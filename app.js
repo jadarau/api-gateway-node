@@ -1,5 +1,8 @@
 const Pessoa = require('./inputs/pessoa')
 const Agendamento = require('./inputs/agendamento')
+const Profissional = require('./inputs/profissional')
+const Procedimento = require('./inputs/procedimento')
+const Agenda = require('./inputs/agenda')
 require('dotenv').config()
 const express = require('express')
 const axios = require('axios')
@@ -109,7 +112,8 @@ app.delete('/pessoa/delete/:id', async (req, res) => {
 // SAVE
 app.post('/profissional', async (req, res) => {
   const token = req.header('token')
-  const { data } = await axios.post('http://localhost:8080/regulacao/profissional', { headers: { 'Authorization': `Bearer ${token}` }})
+  const profissional = new Profissional(req.body)
+  const { data } = await axios.post('http://localhost:8080/regulacao/profissional', profissional, { headers: { 'Authorization': `Bearer ${token}` }})
   res.json(data)
 })
 
@@ -149,7 +153,8 @@ app.delete('/profissional/delete/:id', async (req, res) => {
 // SAVE
 app.post('/procedimento', async (req, res) => {
   const token = req.header('token')
-  const { data } = await axios.post('http://localhost:8080/regulacao/procedimento', { headers: { 'Authorization': `Bearer ${token}` }})
+  const procedimento = new Procedimento(req.body)
+  const { data } = await axios.post('http://localhost:8080/regulacao/procedimento', procedimento, { headers: { 'Authorization': `Bearer ${token}` }})
   res.json(data)
 })
 
@@ -173,7 +178,8 @@ app.get('/procedimentos', async (req, res) => {
 // SAVE
 app.post('/agenda', async (req, res) => {
   const token = req.header('token')
-  const { data } = await axios.post('http://localhost:8080/regulacao/agenda', { headers: { 'Authorization': `Bearer ${token}` }})
+  const agenda = new Agenda(req.body)
+  const { data } = await axios.post('http://localhost:8080/regulacao/agenda', agenda, { headers: { 'Authorization': `Bearer ${token}` }})
   res.json(data)
 })
 
