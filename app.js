@@ -1,5 +1,5 @@
-const Pessoa = require('./objects/pessoa')
-const Agendamento = require('./objects/agendamento')
+const Pessoa = require('./inputs/pessoa')
+const Agendamento = require('./inputs/agendamento')
 require('dotenv').config()
 const express = require('express')
 const axios = require('axios')
