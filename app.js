@@ -1,5 +1,5 @@
 const Pessoa = require('./objects/pessoa')
-const FormData = require('form-data');
+const Agendamento = require('./objects/agendamento')
 require('dotenv').config()
 const express = require('express')
 const axios = require('axios')
@@ -36,7 +36,11 @@ app.disable('x-powered-by')
 // SAVE
 app.post('/agendamento', async (req, res) => {
   const token = req.header('token')
-  const { data } = await axios.post('http://localhost:8095/regulacao/agendamento', { headers: { 'Authorization': `Bearer ${token}` }, body: req.body})
+  const agendamento = new Agendamento(req.body)
+  const { data } = await axios.post('http://localhost:8095/regulacao/agendamento', agendamento, 
+    { 
+      headers: { 'Authorization': `Bearer ${token}` }
+    })
   res.json(data)
 })
 
@@ -105,7 +109,7 @@ app.delete('/pessoa/delete/:id', async (req, res) => {
 // SAVE
 app.post('/profissional', async (req, res) => {
   const token = req.header('token')
-  const { data } = await axios.post('http://localhost:8080/regulacao/profissional', { headers: { 'Authorization': `Bearer ${token}` }, body: req.body})
+  const { data } = await axios.post('http://localhost:8080/regulacao/profissional', { headers: { 'Authorization': `Bearer ${token}` }})
   res.json(data)
 })
 
@@ -145,7 +149,7 @@ app.delete('/profissional/delete/:id', async (req, res) => {
 // SAVE
 app.post('/procedimento', async (req, res) => {
   const token = req.header('token')
-  const { data } = await axios.post('http://localhost:8080/regulacao/procedimento', { headers: { 'Authorization': `Bearer ${token}` }, body: req.body})
+  const { data } = await axios.post('http://localhost:8080/regulacao/procedimento', { headers: { 'Authorization': `Bearer ${token}` }})
   res.json(data)
 })
 
@@ -169,7 +173,7 @@ app.get('/procedimentos', async (req, res) => {
 // SAVE
 app.post('/agenda', async (req, res) => {
   const token = req.header('token')
-  const { data } = await axios.post('http://localhost:8080/regulacao/agenda', { headers: { 'Authorization': `Bearer ${token}` }, body: req.body})
+  const { data } = await axios.post('http://localhost:8080/regulacao/agenda', { headers: { 'Authorization': `Bearer ${token}` }})
   res.json(data)
 })
 
