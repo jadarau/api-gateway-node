@@ -1,3 +1,5 @@
+const Pessoa = require('./objects/pessoa')
+const FormData = require('form-data');
 require('dotenv').config()
 const express = require('express')
 const axios = require('axios')
@@ -57,27 +59,14 @@ app.get('/agendamento/:id', async (req, res) => {
 
 // SAVE
 app.post('/pessoa', async (req, res) => {
-  const token = req.header('token')
-  const { data } = await axios.post('http://localhost:8080/regulacao/pessoa', {     
-      plano: req.body.plano,
-      cpf: req.body.cpf,
-      rg: req.body.rg,
-      cnh: req.body.cnh,
-      nome: req.body.nome,
-      sobrenome: req.body.sobrenome,
-      nasc: req.body.nasc,
-      mae: req.body.mae,
-      pai: req.body.pai, 
-      telefones: req.body.telefones,
-      emails: req.body.emails,
-      enderecos: req.body.enderecos,
-      atendimentos: req.body.atendimentos,
-      profissional: req.body.profissional
-    }, 
+  const token = req.header('token')  
+  const pessoa = new Pessoa(req.body)
+  const { data } = await axios.post('http://localhost:8080/regulacao/pessoa', pessoa, 
     {
       headers: { 'Authorization': `Bearer ${token}` }
     })
   res.json(data)
+  // res.json(pessoa)
 })
 
 // UPDATE
